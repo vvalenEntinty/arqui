@@ -1,0 +1,15 @@
+.data 
+str: .asciiz "sapeee"
+longitud_str: .word 0
+.code 
+daddi r1 , r0 , str ;direccion del str 
+jal longitud
+sd r2 , longitud_str(r0)
+halt
+longitud: daddi r2 , r0 , 0 ;contador para ir contando los strings de str
+loop : lbu r3 , r0 (r1) ;direccion de str en r3 para contar el primer string , cargar un bit 
+beqz r3 , fin ;si llego al final , termina 
+daddi r2, r2 ,1 ;suma a r2 para avisar que encontro 
+daddi r1 , r1 ,1 ;suma para avanzar al siguiente string
+j loop
+fin : jr $ra
