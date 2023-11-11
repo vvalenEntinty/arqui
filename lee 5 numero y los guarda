@@ -1,0 +1,20 @@
+.data
+dir_control: .word 0x10000
+dir_data: .word 0x10008
+vec: .word 0,0,0,0,0
+.code 
+ld $t1 , dir_control($0)
+ld $t2 , dir_data($0)
+daddi $t3 , $0 , 8 ;leer numero
+daddi $t4 , $0 , 0 ; desplazamiento
+daddi $t5 , $0 , 5 ;cantidad
+
+loop: sd $t3 , 0($t1)   
+ld $t6 , 0($t2)
+
+sd $t6 , vec($t4)
+daddi $t4 , $t4 , 8
+
+daddi $t5 , $t5, -1
+bnez $t5 , loop
+halt 
