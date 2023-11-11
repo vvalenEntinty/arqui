@@ -1,0 +1,17 @@
+.data
+dir_control: .word 0x10000
+dir_data: .word 0x10008
+.code 
+ld $t1 , dir_control($0)
+ld $t2 , dir_data($0)
+daddi $t3 , $0 , 8
+daddi $t4 , $0 , 0
+loop: sd $t3 , 0($t1)
+ld $t6 , 0($t2)
+beqz $t6 , fin
+dadd $t4 , $t4 , $t6
+j loop
+fin: sd $t6 , 0($t2)
+daddi $t5 , $t0 , 1
+sd $t5 , 0($t1)
+halt
